@@ -25,7 +25,7 @@ jobs:
             aws-region: us-east-1
             role-session-name: GitHubActions-${{ github.run_id}}
             role-duration-seconds: 3600
-            audience: sts.amazonaws.com
+            mask-aws-account-id: false
 
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v3
