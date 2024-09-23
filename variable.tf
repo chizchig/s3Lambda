@@ -24,3 +24,7 @@ variable "analytics" {
 variable "topic_name" {
   type = string
 }
+
+locals {
+  debug_function_name = var.function_name
+}
