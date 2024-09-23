@@ -1,6 +1,6 @@
 
 resource "aws_sqs_queue" "ds3_sqs" {
-  name                        = var.sqs_queue
+  name    = var.sqs_queue
   
 }
 

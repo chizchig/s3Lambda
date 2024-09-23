@@ -1,6 +1,6 @@
 
 resource "aws_sns_topic" "new_s3_alert" {
-  name                        = var.topic_name
+  name    = var.topic_name
   
 }
 
