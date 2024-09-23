@@ -38,7 +38,7 @@ jobs:
             path: |
               ~/.terraform
               .terraform
-            key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf*') }}-v1
+            key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf*') }}-v3
 
         - name: Create terraform.auto.tfvars
           run: |
