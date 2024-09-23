@@ -21,11 +21,11 @@ jobs:
         - name: Configure AWS Credentials
           uses: aws-actions/configure-aws-credentials@v4
           with:
-            role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+            role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }} 
             aws-region: us-east-1
             role-session-name: GitHubActions-${{ github.run_id}}
             role-duration-seconds: 3600
-            mask-aws-account-id: false
+            audience: sts.amazonaws.com
 
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v3
