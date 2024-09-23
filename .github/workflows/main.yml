@@ -34,12 +34,14 @@ jobs:
 
         - name: Create terraform.auto.tfvars
           run: |
-           cat <<EOF > terraform.auto.tfvars
-           bucket        = "${{ secrets.BUCKET}}"
-           function_name = "${{ secrets.FUNCTION_NAME}}"
-           sqs_queue     = "${{ secrets.SQS_QUEUE}}"
-           analytics     = "${{ secrets.ANALYTICS}}"
-           topic_name    = "${{ secrets.TOPIC_NAME}}"
+            cat <<EOF > terraform.auto.tfvars
+            bucket        = "${{ secrets.BUCKET}}"
+            function_name = "${{ secrets.FUNCTION_NAME}}"
+            sqs_queue     = "${{ secrets.SQS_QUEUE}}"
+            analytics     = "${{ secrets.ANALYTICS}}"
+            topic_name    = "${{ secrets.TOPIC_NAME}}"
+            EOF
+           
 
         - name: Terraform init
           run: terraform init
