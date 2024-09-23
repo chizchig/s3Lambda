@@ -32,6 +32,14 @@ jobs:
           with:
              terraform_wrapper: false
 
+        - name: Cache Terraform Files
+          uses: actions/cache@v3
+          with:
+            path: |
+              ~/.terraform
+              .terraform
+            key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf*') }}-v1
+
         - name: Create terraform.auto.tfvars
           run: |
             cat <<EOF > terraform.auto.tfvars
