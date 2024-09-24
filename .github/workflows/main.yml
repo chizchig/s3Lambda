@@ -44,15 +44,11 @@ jobs:
           run: |
             cat <<EOF > terraform.auto.tfvars
             bucket        = "${{ secrets.BUCKET}}"
-            function_name = "${{ secrets.FUNCTION_NAME}}"
+            function_name = "alphas3-lambda-function-name"
             sqs_queue     = "${{ secrets.SQS_QUEUE}}"
             analytics     = "${{ secrets.ANALYTICS}}"
             topic_name    = "${{ secrets.TOPIC_NAME}}"
             EOF
-        
-        - name: Add function_name to terraform.auto.tfvars
-          run: |
-            echo 'function_name = "alphas3-lambda-function-name"' >> terraform.auto.tfvars
         
         - name: Terraform init
           run: terraform init
