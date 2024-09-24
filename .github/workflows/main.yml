@@ -9,29 +9,29 @@ permissions:
     id-token: write
     contents: read
 
-jobs: 
+jobs:
     terraform:
         name: 'Terraform'
         runs-on: ubuntu-latest
-
-        steps: 
+        
+        steps:
         - name: 'Checkout'
           uses: actions/checkout@v2
         
         - name: Configure AWS Credentials
           uses: aws-actions/configure-aws-credentials@v4
           with:
-            role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }} 
+            role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
             aws-region: us-east-1
             role-session-name: GitHubActions-${{ github.run_id}}
             role-duration-seconds: 3600
             audience: sts.amazonaws.com
-
+        
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v3
           with:
-             terraform_wrapper: false
-
+            terraform_wrapper: false
+        
         - name: Cache Terraform Files
           uses: actions/cache@v3
           with:
@@ -39,7 +39,7 @@ jobs:
               ~/.terraform
               .terraform
             key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf*') }}-v3
-
+        
         - name: Create terraform.auto.tfvars
           run: |
             cat <<EOF > terraform.auto.tfvars
@@ -49,15 +49,18 @@ jobs:
             analytics     = "${{ secrets.ANALYTICS}}"
             topic_name    = "${{ secrets.TOPIC_NAME}}"
             EOF
-           
-
+        
+        - name: Add function_name to terraform.auto.tfvars
+          run: |
+            echo 'function_name = "alphas3-lambda-function-name"' >> terraform.auto.tfvars
+        
         - name: Terraform init
           run: terraform init
-
+        
         - name: Terraform Plan
           run: terraform plan -no-color
           continue-on-error: true
-
+        
         - name: Terraform Apply
           if: github.ref == 'refs/heads/master' && github.event_name == 'push'
           run: terraform apply -auto-approve
