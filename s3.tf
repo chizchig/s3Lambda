@@ -10,9 +10,13 @@ resource "aws_s3_bucket" "ds3" {
 
 resource "aws_s3_bucket" "analytics" {
   bucket = var.analytics
+
+  tags = {
+    Name = "analytics_storage"
+  }
 }
 
-resource "aws_s3_bucket_analytics_configuration" "name" {
+resource "aws_s3_bucket_analytics_configuration" "bckt_analytics_conf" {
   bucket = aws_s3_bucket.ds3.id
   name   = "EntireBucket"
 
